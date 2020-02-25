@@ -56,7 +56,7 @@ def scrape_yahoo_prices(stocks, start, end, file_label, format):
     if format == "close_price":
         data['Close'].to_csv(r"./raw_data/"+file_label+".csv")
 
-#scrape_yahoo_prices(major_indexes, start, end, "major_indexes", "year-over-year")
-#scrape_yahoo_prices(metals, start, end, "metals", "year-over-year")
-#scrape_yahoo_prices(energy, start, end, "energy", "year-over-year")
+scrape_yahoo_prices(major_indexes, start, end, "major_indexes", "year-over-year")
+scrape_yahoo_prices(metals, start, end, "metals", "year-over-year")
+scrape_yahoo_prices(energy, start, end, "energy", "year-over-year")
 scrape_yield_curve()
