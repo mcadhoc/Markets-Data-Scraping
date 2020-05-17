@@ -5,7 +5,7 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
-end = datetime.datetime(2020,3,2)
+end = datetime.datetime(2020,3,12)
 days = datetime.timedelta(365*3)
 start = end - days
 
@@ -57,25 +57,7 @@ def scrape_yahoo_prices(stocks, start, end, file_label, format):
     if format == "close_price":
         data['Close'].to_csv(r"./raw_data/"+file_label+".csv")
 
-def scrape_global_bonds():
-    #http://www.worldgovernmentbonds.com/
-
-    url = 'http://www.worldgovernmentbonds.com/'
-
-    r = requests.get(url)
-    html = r.text
-
-    soup = BeautifulSoup(html)
-    table = soup.find('table', {"class": "t-chart"})
-    rows = table.find_all('tr')
-    data = []
-    for row in rows[1:]:
-        cols = row.find_all('td')
-        cols = [ele.text.strip() for ele in cols]
-        data.append([ele for ele in cols if ele])
-
-    result = pd.DataFrame(data, columns=['Date','1 Mo', '2 Mo', '3 Mo', '6 Mo', '1 Yr', '2 Yr', '3 Yr', '5 Yr', '7 Yr', '10 Yr', '20 Yr', '30 Yr'])
-    result[-252:].to_csv(r'./raw_data/global_bond.csv', index = False)
+#http://www.worldgovernmentbonds.com/
 
 scrape_yahoo_prices(major_indexes, start, end, "major_indexes", "year-over-year")
 scrape_yahoo_prices(metals, start, end, "metals", "year-over-year")
